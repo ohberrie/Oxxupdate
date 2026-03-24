@@ -1,5 +1,5 @@
-import { ProjectGalleryPage } from './ProjectGalleryPage';
+import { LabLandingPage } from './LabLandingPage';
 
 export function LabPage() {
-  return <ProjectGalleryPage type="lab" />;
+  return <LabLandingPage />;
 }

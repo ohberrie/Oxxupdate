@@ -162,14 +162,11 @@ export function FrameworkPage() {
         {/* Intro + Toggle */}
         <div className="px-8 pt-6 pb-4 flex items-end justify-between max-md:flex-col max-md:items-start max-md:gap-4">
           <div>
-            <h1 className="font-['JetBrains_Mono'] text-[clamp(28px,3vw,48px)] font-bold text-[#141414] tracking-[-0.02em] leading-[1.1]">
+            <h1 className="font-['DM_Sans'] text-[34px] font-semibold text-[#141414] tracking-[-0.03em] leading-[1.1] max-md:text-[28px]">
               Framework
             </h1>
-            <p className="font-['JetBrains_Mono'] text-[13px] text-[#141414] opacity-50 mt-2 leading-[1.6] max-w-[520px]">
+            <p className="font-['DM_Sans'] text-[14px] text-[#141414] opacity-45 mt-2 leading-[1.5] max-w-[520px]">
               Explore how research systems, form strategies, and studio works connect inside OXX Lab.
-            </p>
-            <p className="font-['JetBrains_Mono'] text-[11px] text-[#141414] opacity-30 mt-1 leading-[1.6]">
-              Lab develops systems. Studio applies them. Framework shows how they connect.
             </p>
           </div>
 
@@ -319,7 +316,7 @@ export function FrameworkPage() {
               <div className="flex flex-col gap-6 min-w-[290px]">
                 {/* Header */}
                 <div>
-                  <h2 className="font-['JetBrains_Mono'] text-[20px] font-bold text-[#141414] tracking-[-0.02em] leading-[1.2]">
+                  <h2 className="font-['DM_Sans'] text-[20px] font-bold text-[#141414] tracking-[-0.02em] leading-[1.2]">
                     {selected.label}
                   </h2>
                   <span className="font-['JetBrains_Mono'] text-[10px] tracking-[0.08em] uppercase text-[#FF4D00] mt-1 inline-block">
@@ -329,7 +326,7 @@ export function FrameworkPage() {
 
                 {/* Description */}
                 <div>
-                  <p className="font-['JetBrains_Mono'] text-[12px] text-[#141414] opacity-60 leading-[1.7]">
+                  <p className="font-['DM_Sans'] text-[12px] text-[#141414] opacity-60 leading-[1.7]">
                     {selected.description}
                   </p>
                 </div>
