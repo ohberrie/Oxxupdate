@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
   { path: '/lab/layer-stack/experiment', Component: LayerStackExperimentPage },
   { path: '/lab/layer-stack/observation', Component: LayerStackObservationPage },
 
-  // Projects / SHAPER
+  // Projects / SHAPER (Design Selection)
   { path: '/projects/shaper', Component: ShaperConfigurePage },
   { path: '/projects/shaper/configure', Component: ShaperConfigurePage },
   { path: '/projects/shaper/logic', Component: ShaperLogicPage },

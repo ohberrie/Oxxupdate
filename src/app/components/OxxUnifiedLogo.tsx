@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import clsx from 'clsx';
 
-/* ── Pixel sub-components ── */
+/* Pixel sub-components (from Figma Group11) */
 
 function PixelDot({ additionalClassNames = '' }: { additionalClassNames?: string }) {
   return (
@@ -106,7 +106,7 @@ function OxxPixelGraphic() {
   );
 }
 
-/* ── Unified Logo ── */
+/* Unified Logo */
 
 interface OxxUnifiedLogoProps {
   isStudio: boolean;
@@ -131,7 +131,10 @@ export function OxxUnifiedLogo({ isStudio }: OxxUnifiedLogoProps) {
         <OxxPixelGraphic />
       </Link>
 
-      <div className="flex items-center" style={{ marginLeft: 14 }}>
+      <div
+        className="flex items-center"
+        style={{ marginLeft: 14 }}
+      >
         <Link
           to="/lab"
           className="no-underline transition-all duration-200 cursor-pointer lowercase whitespace-nowrap"
@@ -150,7 +153,10 @@ export function OxxUnifiedLogo({ isStudio }: OxxUnifiedLogoProps) {
           lab
         </Link>
 
-        <div className="flex items-center justify-center" style={{ width: 10, height: 11, marginLeft: 5, marginRight: 7 }}>
+        <div
+          className="flex items-center justify-center"
+          style={{ width: 10, height: 11, marginLeft: 5, marginRight: 7 }}
+        >
           <svg width="1" height="11" viewBox="0 0 1 11" fill="none">
             <line x1="0.5" y1="0" x2="0.5" y2="11" stroke="black" />
           </svg>

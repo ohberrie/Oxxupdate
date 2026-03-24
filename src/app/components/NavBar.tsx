@@ -9,6 +9,7 @@ export function NavBar({ mode }: NavBarProps = {}) {
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
+  // Determine studio vs lab mode
   const autoStudio = location.pathname.startsWith('/projects') || location.pathname.startsWith('/shop');
   const aboutCtx = searchParams.get('ctx');
   const isStudio = mode === 'studio' || (mode !== 'lab' && (autoStudio || (location.pathname.startsWith('/about') && aboutCtx === 'studio')));
