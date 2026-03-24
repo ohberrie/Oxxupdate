@@ -15,7 +15,7 @@ import {
 /* cache-bust */
 export function LabSystemPage() {
   const navigate = useNavigate();
-  const [systemStep, setSystemStep] = useState('base');
+  const [systemStep, setSystemStep] = useState('intro');
   const [expertMode, setExpertMode] = useState(false);
   const [baseRules, setBaseRules] = useState<BaseRules>({ domain: null, world: [], visibility: null, actor: null, constraints: [] });
   const [intents, setIntents] = useState<Intents>({ tones: [], positions: [], narratives: [] });
@@ -352,6 +352,11 @@ export function LabSystemPage() {
     strategy: renderStrategy, implementation: renderImplementation, evaluation: renderEvaluation,
   };
 
+  // All steps including intro
+  const ALL_STEPS = [{ id: 'intro', label: 'Systems', num: '—' }, ...STEPS];
+  const allSi = ALL_STEPS.findIndex(s => s.id === systemStep);
+  const isIntro = systemStep === 'intro';
+
   // ═══ RIGHT PANEL ═══
   const renderRightPanel = () => {
     if (systemStep === 'base') {
@@ -446,8 +451,13 @@ export function LabSystemPage() {
         {/* Left sidebar */}
         <div style={{ width: 210, borderRight: '1px solid rgba(255,255,255,0.06)', padding: '28px 0', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', letterSpacing: '0.12em', padding: '0 20px', marginBottom: 20 }}>System Pipeline</div>
+          {/* Intro item */}
+          <button onClick={() => setSystemStep('intro')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 20px', background: isIntro ? 'rgba(255,30,0,0.04)' : 'transparent', border: 'none', borderLeft: isIntro ? '2px solid #FF1E00' : '2px solid transparent', cursor: 'pointer', marginBottom: 8 }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: isIntro ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)', fontWeight: isIntro ? 500 : 400 }}>Overview</span>
+          </button>
+          <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', margin: '0 20px 8px' }} />
           {STEPS.map((s, i) => {
-            const isA = systemStep === s.id; const isP = i < si;
+            const isA = systemStep === s.id; const isP = !isIntro && i < si;
             return (<button key={s.id} onClick={() => setSystemStep(s.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 20px', background: isA ? 'rgba(255,30,0,0.04)' : 'transparent', border: 'none', borderLeft: isA ? '2px solid #FF1E00' : '2px solid transparent', cursor: 'pointer' }}>
               <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: isA ? '#FF1E00' : isP ? 'rgba(255,30,0,0.3)' : 'rgba(255,255,255,0.15)' }}>{s.num}</span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: isA ? 'rgba(255,255,255,0.9)' : isP ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.25)', fontWeight: isA ? 500 : 400 }}>{s.label}</span>
@@ -469,24 +479,68 @@ export function LabSystemPage() {
         </div>
 
         {/* Center content */}
-        <div style={{ flex: 1, overflow: 'auto', padding: '28px 36px' }}>
-          <div style={{ marginBottom: 8 }}>
-            <h1 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 34, fontWeight: 600, color: '#fff', letterSpacing: '-0.03em', margin: 0, marginBottom: 8 }}>Systems</h1>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.35)', margin: 0, marginBottom: 28 }}>A decision interface for meaning, form, and perception</p>
-          </div>
-          <div style={{ marginBottom: 28 }}><PipelineDiagram currentStep={systemStep} /></div>
-          {stepRenderers[systemStep]?.()}
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 36, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-            {si > 0
-              ? <button onClick={() => setSystemStep(STEPS[si - 1].id)} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: 'rgba(255,255,255,0.3)', background: 'none', border: '1px solid rgba(255,255,255,0.08)', padding: '8px 20px', borderRadius: 2, cursor: 'pointer' }}>← Previous</button>
-              : <div />}
-            {si < STEPS.length - 1 &&
-              <button onClick={() => setSystemStep(STEPS[si + 1].id)} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#FF1E00', background: 'rgba(255,30,0,0.06)', border: '1px solid rgba(255,30,0,0.2)', padding: '8px 20px', borderRadius: 2, cursor: 'pointer' }}>Next →</button>}
-          </div>
+        <div style={{ flex: 1, overflow: 'auto', padding: isIntro ? '0' : '28px 36px' }}>
+          {isIntro ? (
+            /* ═══ INTRO / SEMI-LANDING ═══ */
+            <div>
+              {/* Title section */}
+              <div style={{ padding: '60px 36px 0' }}>
+                <h1 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 34, fontWeight: 600, color: '#fff', letterSpacing: '-0.03em', margin: 0, marginBottom: 8 }}>Systems</h1>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.35)', margin: 0, marginBottom: 0 }}>A decision interface for meaning, form, and perception</p>
+              </div>
+
+              {/* 3-Column: Meaning / Form / Perception */}
+              <div style={{ padding: '60px 36px 0' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+                  {[
+                    { num: '01', title: 'Meaning', desc: 'Design begins with structured intent — not mood, not style.' },
+                    { num: '02', title: 'Form Strategy', desc: 'Form is the spatial, material, structural translation of meaning under constraint.' },
+                    { num: '03', title: 'Perception', desc: 'The test is whether the perceived experience aligns with intended meaning.' },
+                  ].map((item, i) => (
+                    <div key={i} style={{ padding: '24px 20px', borderTop: '1px solid rgba(255,30,0,0.15)' }}>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#FF1E00', opacity: 0.5 }}>{item.num}</span>
+                      <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 22, fontWeight: 600, color: '#fff', margin: '10px 0 12px', letterSpacing: '-0.03em' }}>{item.title}</h3>
+                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, lineHeight: 1.7, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pipeline Overview */}
+              <div style={{ padding: '60px 36px 40px' }}>
+                <h2 style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 28 }}>Pipeline Overview</h2>
+                <PipelineDiagram currentStep="base" />
+              </div>
+
+              {/* CTA to start */}
+              <div style={{ padding: '0 36px 60px', display: 'flex', justifyContent: 'flex-end' }}>
+                <button onClick={() => setSystemStep('base')} style={{
+                  padding: '12px 28px', fontFamily: "'JetBrains Mono', monospace", fontSize: 12,
+                  letterSpacing: '0.06em', textTransform: 'uppercase', background: '#FF1E00',
+                  color: '#fff', border: 'none', borderRadius: 2, cursor: 'pointer', fontWeight: 600,
+                }}>Begin → 01 Base Rules</button>
+              </div>
+            </div>
+          ) : (
+            /* ═══ PIPELINE STEPS ═══ */
+            <>
+              <div style={{ marginBottom: 28 }}><PipelineDiagram currentStep={systemStep} /></div>
+              {stepRenderers[systemStep]?.()}
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 36, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                {si > 0
+                  ? <button onClick={() => setSystemStep(STEPS[si - 1].id)} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: 'rgba(255,255,255,0.3)', background: 'none', border: '1px solid rgba(255,255,255,0.08)', padding: '8px 20px', borderRadius: 2, cursor: 'pointer' }}>← Previous</button>
+                  : <button onClick={() => setSystemStep('intro')} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: 'rgba(255,255,255,0.3)', background: 'none', border: '1px solid rgba(255,255,255,0.08)', padding: '8px 20px', borderRadius: 2, cursor: 'pointer' }}>← Overview</button>}
+                {si < STEPS.length - 1 &&
+                  <button onClick={() => setSystemStep(STEPS[si + 1].id)} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#FF1E00', background: 'rgba(255,30,0,0.06)', border: '1px solid rgba(255,30,0,0.2)', padding: '8px 20px', borderRadius: 2, cursor: 'pointer' }}>Next →</button>}
+              </div>
+            </>
+          )}
         </div>
 
-        {/* Right panel */}
-        <div style={{ width: 260, borderLeft: '1px solid rgba(255,255,255,0.06)', padding: '28px 20px', flexShrink: 0, overflow: 'auto' }}>{renderRightPanel()}</div>
+        {/* Right panel — hidden on intro */}
+        {!isIntro && (
+          <div style={{ width: 260, borderLeft: '1px solid rgba(255,255,255,0.06)', padding: '28px 20px', flexShrink: 0, overflow: 'auto' }}>{renderRightPanel()}</div>
+        )}
       </div>
     </DarkPageWrapper>
   );

@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router';
-// Route config
 import { HomePage } from './components/HomePage';
 import { AboutPage } from './components/AboutPage';
 import { LabPage } from './components/LabPage';

@@ -42,7 +42,7 @@ export function NavBar({ mode, dark = false, transparent = false }: NavBarProps)
         { label: 'About', path: aboutLink, active: isAboutActive },
       ]
     : [
-        { label: 'Systems', path: '/lab', active: isLabActive },
+        { label: 'Systems', path: '/lab/systems', active: isLabActive },
         { label: 'Cases', path: '/lab/cases', active: isCasesActive },
         { label: 'Notes', path: '/notes', active: isNotesActive },
         { label: 'Framework', path: '/framework', active: isFrameworkActive },
